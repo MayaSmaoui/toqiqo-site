@@ -40,7 +40,7 @@ export default function Legal({ lang = "fr" }) {
           h: "Directeur de la publication",
           body: (
             <p>
-              <strong>Maya [Nom de famille]</strong>. Pour toute demande relative au contenu éditorial :{" "}
+              <strong>Maya Smaoui</strong>. Pour toute demande relative au contenu éditorial :{" "}
               <a className="link" href="mailto:contact@topiqo.com">contact@topiqo.com</a>.
             </p>
           ),
