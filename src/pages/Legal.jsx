@@ -215,7 +215,7 @@ export default function Legal({ lang = "fr" }) {
           h: "Publication director",
           body: (
             <p>
-              <strong>Maya [Last name]</strong>. For editorial inquiries:{" "}
+              <strong>Maya Smaoui</strong>. For editorial inquiries:{" "}
               <a className="link" href="mailto:contact@topiqo.com">contact@topiqo.com</a>.
             </p>
           ),
