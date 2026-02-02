@@ -4,14 +4,10 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Pricing from './pages/Pricing';
 import Help from './pages/Help';
 import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';
 import Legal from './pages/Legal';
-import Download from './pages/Download';
 
 // Textes FR / EN
 const TEXTS = {
@@ -56,7 +52,10 @@ const TEXTS = {
 };
 
 function App() {
-  const [lang, setLang] = useState('fr');
+  const [lang, setLang] = useState(() => {
+    const browserLang = navigator.language || navigator.userLanguage || 'en';
+    return browserLang.startsWith('fr') ? 'fr' : 'en';
+  });
   const [menuOpen, setMenuOpen] = useState(false);
   const t = TEXTS[lang];
   const goTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -99,8 +98,6 @@ function App() {
   </div>
 
   <div className="nav-links">
-    <Link to="/login" className="nav-link">{t.login}</Link>
-    <Link to="/signup" className="signup-button">{t.signup}</Link>
     <button
       className="lang-toggle"
       onClick={() => setLang(lang === "fr" ? "en" : "fr")}
@@ -137,11 +134,9 @@ function App() {
 
         <nav className="drawer-links">
   {[
-    { label: t.links[0], to: "/#features" }, // Fonctionnalités
-    { label: t.links[1], to: "/download" },  // Télécharger l’app
-    { label: t.links[3], to: "/help" },      // Aide
-    { label: t.links[4], to: "/contact" },   // Contact
-    { label: t.links[2], to: "/pricing" }    // Tarifs
+    { label: t.links[0], to: "/#features" },
+    { label: t.links[3], to: "/help" },
+    { label: t.links[4], to: "/contact" }
   ].map((item, i) => (
     <Link key={i} to={item.to} className="drawer-link" onClick={() => setMenuOpen(false)}>
       {item.label}
@@ -149,11 +144,6 @@ function App() {
   ))}
 </nav>
 
-
-        <div className="drawer-cta">
-          <Link to="/signup" className="btn btn-primary" onClick={closeAnd()}>{t.signup}</Link>
-          <Link to="/login" className="btn btn-ghost" onClick={closeAnd()}>{t.login}</Link>
-        </div>
 
         <div className="drawer-lang">
           <button
@@ -168,14 +158,10 @@ function App() {
       {/* ROUTES */}
       <Routes>
         <Route path="/" element={<Home t={t} lang={lang} setLang={setLang} />} />
-        <Route path="/login" element={<Login lang={lang} />} />
-        <Route path="/signup" element={<Signup lang={lang} />} />
-        <Route path="/pricing" element={<Pricing lang={lang} />} />
         <Route path="/help" element={<Help lang={lang} />} />
         <Route path="/contact" element={<Contact lang={lang} />} />
         <Route path="/privacy" element={<Privacy lang={lang} />} />
         <Route path="/legal" element={<Legal lang={lang} />} />
-        <Route path="/download" element={<Download lang={lang} />} />
       </Routes>
 
       {/* FOOTER */}
@@ -196,8 +182,6 @@ function App() {
   <h4>{lang === "fr" ? "Liens" : "Links"}</h4>
   {[
     { label: t.links[0], to: "/#features" },
-    { label: t.links[1], to: "/download" },
-    { label: t.links[2], to: "/pricing" },
     { label: t.links[3], to: "/help" },
     { label: t.links[4], to: "/contact" },
     { label: t.links[5], to: "/privacy" },
